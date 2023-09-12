@@ -1,0 +1,1 @@
+_ faign es una alternativa a RestTemplate para cosnumir un cliente http. Una forma mas simple y facil utilizando interfaces y anotaciones de forma declarativa (desarrollado por netflix)
