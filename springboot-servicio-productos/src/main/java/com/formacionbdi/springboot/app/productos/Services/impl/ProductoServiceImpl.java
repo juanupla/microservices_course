@@ -2,7 +2,6 @@ package com.formacionbdi.springboot.app.productos.Services.impl;
 
 import com.formacionbdi.springboot.app.productos.Entities.ProductoEntity;
 import com.formacionbdi.springboot.app.productos.Models.DTOs.ProductoDTO;
-import com.formacionbdi.springboot.app.productos.Models.Producto;
 import com.formacionbdi.springboot.app.productos.Repositories.ProductoJpa;
 import com.formacionbdi.springboot.app.productos.Services.IProductoService;
 import org.modelmapper.ModelMapper;
@@ -10,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.ErrorResponseException;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import java.util.List;
 @Service
