@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 @Service
-@Primary //notacion para que se inyecte por defecto a la interfaz IItemService y sea esta la implementacion, ya que existen 2 implementaciones.
+//@Primary //notacion para que se inyecte por defecto a la interfaz IItemService y sea esta la implementacion por defecto, ya que existen 2 implementaciones.
 // otra opcion es cuando inyectamos la interfaz en el controller usar la notacion @Qualifire("itemServiceFeign") y usamos esta implementacion. Notar que el nombre va en minuscula
 // tal cual como se llama la implementacion(tambien podemos abrir parentesis en la notacion @Service y llamarlo de otra forma ej: @Service("serviceFeign"))
 //en resumen, @Qualifire es una notacion importante para decidir cuál implementacion vamos a utilizar y donde estan las implementaciones, en la notacion @Service podemos ponerle otro nombre si no deseamos usar el nombre de la clase que lo implemeta

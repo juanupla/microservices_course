@@ -20,7 +20,7 @@ public class ItemService implements IItemService {
     private ModelMapper modelMapper;
     @Override
     public List<Item> finAll() {
-        List<Producto> productos = Arrays.asList(restTemplate.getForObject("http://localhost:8001/Productos/AllProductos", Producto[].class));
+        List<Producto> productos = Arrays.asList(restTemplate.getForObject("http://servicio-productos/Productos/AllProductos", Producto[].class));//si no usaramos eureka, deberia ir el nombre del dominio y el puerto para consumir clientes http. cuando usamos eureka esto lo remplazamos por el nombre del servicio que consumimos
         List<Item> items = new ArrayList<>();
         if(!productos.isEmpty()){
             int i = 0;
@@ -40,7 +40,7 @@ public class ItemService implements IItemService {
     public Item finById(Long id, Integer cantidad) {
         Map<String,String> pathVariable = new HashMap<String,String>();
         pathVariable.put("id",id.toString());
-        Producto producto = restTemplate.getForObject("http://localhost:8001/Productos/ProdcutoById/{id}",Producto.class,pathVariable);
+        Producto producto = restTemplate.getForObject("http://servicio-productos/Productos/ProdcutoById/{id}",Producto.class,pathVariable);
         Item item = modelMapper.map(producto,Item.class);
         item.setCantidad(cantidad);
         return item;
