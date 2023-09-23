@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/Curso_Microservicios.iml" filepath="$PROJECT_DIR$/.idea/Curso_Microservicios.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-servicio-productos/spring-servicio-productos.iml" filepath="$PROJECT_DIR$/springboot-servicio-productos/spring-servicio-productos.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-servicio-eureka-server/springboot-servicio-eureka-server.iml" filepath="$PROJECT_DIR$/springboot-servicio-eureka-server/springboot-servicio-eureka-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-servicio-gateway-server/springboot-servicio-gateway-server.iml" filepath="$PROJECT_DIR$/springboot-servicio-gateway-server/springboot-servicio-gateway-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-servicio-item/springboot-servicio-item.iml" filepath="$PROJECT_DIR$/springboot-servicio-item/springboot-servicio-item.iml" />
     </modules>
   </component>

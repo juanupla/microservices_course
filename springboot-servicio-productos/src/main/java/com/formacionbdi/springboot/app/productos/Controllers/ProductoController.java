@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Productos")
+//@RequestMapping("/Productos")
 public class ProductoController {
     @Autowired
     private IProductoService iProductoService;

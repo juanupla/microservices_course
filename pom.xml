@@ -11,5 +11,6 @@
 		<module>springboot-servicio-item</module>
 		<module>springboot-servicio-productos</module>
 		<module>springboot-servicio-eureka-server</module>
+		<module>springboot-servicio-gateway-server</module>
 	</modules>
 </project>

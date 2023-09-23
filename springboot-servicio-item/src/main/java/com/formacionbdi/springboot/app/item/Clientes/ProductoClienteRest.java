@@ -11,9 +11,9 @@ import java.util.List;
 public interface ProductoClienteRest {
 
 
-    @GetMapping("/Productos/AllProductos")
+    @GetMapping("/AllProductos")
     List<Producto> productos();
-    @GetMapping("/Productos/ProdcutoById/{id}")
+    @GetMapping("/ProdcutoById/{id}")
     Producto producto(@PathVariable Long id);
 
 }
