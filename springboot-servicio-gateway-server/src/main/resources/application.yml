@@ -4,14 +4,21 @@ spring:
       routes:
         - id:  servicio-productos
           uri:  lb://servicio-productos
-          predicates:
+          predicates: #predicates son restrictions para los request. utilizamos los que vienen predetrminados en gateway#
             - Path=/api/productos/**
+            #- Header=toke,\d+          #|con una expresion regular idicamos un requerimiento en headers donde token = a algun numero
+            #- Method=GET,POST          #|indicamos que solo pueden ejecutarse get o post
+            #- Query=color,verde        #|indicamos que debe tener una Query-Param indicando: color=verde
+            #- Cookie=color,azul        #indicamos que debe tener una cookie: color=azul -> en postman debe ser -> color=azul; Path=/api/productos
           filters:
             - StripPrefix=2    #esto sirve para indicar la cantidad de prefijos en el Path. Es decir, en este caso hay 2 y lo definimos como tal#
+            - EjemploCookie=Hola-mi-mensaje-personalizado, usuario, CremonaJuan #ver configuracion en la clase EjemploGatewayFilterFactory#
         - id: servicio-items
           uri:  lb://servicio-items
           predicates:
             - Path=/api/items/**
           filters:
             - StripPrefix=2     #esto sirve para indicar la cantidad de prefijos en el Path. Es decir, en este caso hay 2 y lo definimos como tal#
-
+            - AddRequestHeader=token-request,123456      #filtros de fábrica que vienen en gateway -ver documentacion- vamos a ver los 4 más importantes#
+            - AddResponseHeader=token-response, 654321   #Agregando cabeceras. RESPONSE->la vamos a ver en postman. Los otros 2 son request y lo vamos a poder capturar dentro de nuestro servicio. ->A modo de ejemplo lo capturamos  en el controller de items y lo mostramos con un sout<- #
+            - AddRequestParameter=nombre, juan           #tambien se puede usar set en lugar de add, si queremos modificar por ej: SetResponseHeader=Content-Type, text/plain|Content-Type existe y solo lo modificamos. con un add se duplicaria (-VER DOCUEMNTACON-)#
