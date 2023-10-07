@@ -1,9 +1,11 @@
 package com.formacionbdi.springboot.app.item.Controllers;
 
 import com.formacionbdi.springboot.app.item.Models.Item;
+import com.formacionbdi.springboot.app.item.Models.Producto;
 import com.formacionbdi.springboot.app.item.Services.IItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,9 @@ public class itemController {
     @Autowired
     @Qualifier("itemServiceFeign")//
     private IItemService iItemService;
+
+    @Autowired
+    private CircuitBreakerFactory circuitBreakerFactory; //Esta es un forma de varias para implementar el patron
 
     @GetMapping("/AllItems")
     public ResponseEntity<List<Item>> AllItems(@RequestParam(name="nombre",required = false) String nombre,@RequestHeader(name = "token-request",required = false) String token){
@@ -28,6 +33,18 @@ public class itemController {
     }
     @GetMapping("/ItemById/{id}/Cantidad/{cantidad}")
     public ResponseEntity<Item> itemById(@PathVariable Long id,@PathVariable Integer cantidad){
-        return ResponseEntity.ok(iItemService.finById(id,cantidad));
+        return circuitBreakerFactory.create("items")//Este es el nombre del cortocircuito y luego el .run() donde usamos una expresion lambda
+                .run(()->ResponseEntity.ok(iItemService.finById(id,cantidad)), e -> metodoAlternativo(id,cantidad)); //en caso de error "e" llamara al metodo alternativo; de no tenerlo, cada vez que abra el cortocircuito o se envie una solicitud insatisfactoria devolvera un error "NoFallBackAvailableException"
+    }
+
+    public ResponseEntity<Item> metodoAlternativo(Long id, Integer cantidad){
+        Item item = new Item();
+        Producto producto = new Producto();
+        item.setCantidad(cantidad);
+        producto.setId(id);
+        producto.setNombre("Camara Sony");
+        producto.setPrecio(500.00);
+        item.setProducto(producto);
+        return ResponseEntity.ok(item);
     }
 }
