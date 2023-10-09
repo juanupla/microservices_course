@@ -25,10 +25,14 @@ public class ProductoController {
     @GetMapping("/ProdcutoById/{id}")
     public ResponseEntity<ProductoDTO> ProdcutoById(@PathVariable Long id) throws InterruptedException {
         if(id.equals(10L)){
-            throw new IllegalStateException("Producto no encontrado");//simulamos un error. Es para probar cortocircuito en item
+
+            //simulamos un error. Es para probar cortocircuito en item
+            throw new IllegalStateException("Producto no encontrado");
         }
         if(id.equals(7L)){
-            TimeUnit.SECONDS.sleep(5L);//simulamos un timeout, tambien agregamos para esto throws InterruptedException. Es para probar cortocircuito en item
+
+            //simulamos un timeout, tambien agregamos para esto throws InterruptedException. Es para probar cortocircuito en item
+            TimeUnit.SECONDS.sleep(5L);
         }
         return ResponseEntity.ok(iProductoService.findById(id));
     }

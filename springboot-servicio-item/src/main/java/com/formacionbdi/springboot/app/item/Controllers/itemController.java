@@ -21,6 +21,10 @@ public class itemController {
     @Autowired
     private CircuitBreakerFactory circuitBreakerFactory; //Esta es un forma de varias para implementar el patron
 
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    //                  CONTIENE NOTACIONES DE PARAMETROS Y HEADERS: estos son requeridos en el servicio gateway, quien etrablece filtros
+    //                                                               de lo que debe contener el request. ver application.yml!
     @GetMapping("/AllItems")
     public ResponseEntity<List<Item>> AllItems(@RequestParam(name="nombre",required = false) String nombre,@RequestHeader(name = "token-request",required = false) String token){
         //@RequestParam y @RequestHeader es para manejar las cabeceras establecidas en el filtro del microservico Gateway en el yml.
@@ -31,6 +35,8 @@ public class itemController {
         System.out.println(token);    //a los request solo los mostraremos en consola
         return ResponseEntity.ok(iItemService.finAll());
     }
+    //-----------------------------------------------------------------------------------------------------------------------
+    //                  CONTIENE EJEMPLO DE CIRCUITBREAKER FACTORY: en el cual podemos usar los parametros por defecto o configurarlos nosotros (Bean en la clase RestTemplateConfig )
     @GetMapping("/ItemById/{id}/Cantidad/{cantidad}")
     public ResponseEntity<Item> itemById(@PathVariable Long id,@PathVariable Integer cantidad){
         return circuitBreakerFactory.create("items")//Este es el nombre del cortocircuito y luego el .run() donde usamos una expresion lambda

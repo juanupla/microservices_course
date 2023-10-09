@@ -1,0 +1,20 @@
+#resilience4j:
+#  circuitbreaker:
+#    configs:
+#      defecto:
+#        sliding.window-size: 6 #tamaño muestra
+#        failure-rate-threshold: 50 #tasa de fallo
+#        wait-duration-in-open-state: 20s #tiempo abierto
+#        permitted-number-of-calls-in-half-open-state: 4 #cantidad permitida de calls en estado semi-abierto
+#        slow-call-rate-threshold: 50 #porcentaje para llamadas elntas
+#        slow-call-duration-threshold: 2s #
+#    instances:
+#      items: #nombre del cortocircuito; es decir, le tenemos que asiganr esta configuracion. y que esta por encima de la declarada con el @bean
+#        base-config: defecto
+#  timelimiter:
+#    configs:
+#      defecto:
+#        timeout-duration: 2s
+#    instances:
+#      items:
+#        base-config: defecto
