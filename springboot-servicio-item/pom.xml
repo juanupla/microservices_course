@@ -76,6 +76,14 @@
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 			<version>4.0.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-config
+		Esto es para trabajar en conjunto con el micro de configuraciones. es decir, configuramos del lado del cliente-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+			<version>4.0.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

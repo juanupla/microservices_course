@@ -7,11 +7,14 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -24,6 +27,10 @@ public class itemController {
     @Autowired
     private CircuitBreakerFactory circuitBreakerFactory; //Esta es un forma de varias para implementar el patron
 
+    @Value("${configuracion.texto}")//también podrian ir como parametro donde se utilizan
+    private String texto;
+    @Value("${server.port}")//también podrian ir como parametro donde se utilizan
+    private String puerto;
 
     //-----------------------------------------------------------------------------------------------------------------------
     //                  CONTIENE NOTACIONES DE PARAMETROS Y HEADERS: estos son requeridos en el servicio gateway, quien etrablece filtros
@@ -90,5 +97,17 @@ public class itemController {
         producto.setPrecio(500.00);
         item.setProducto(producto);
         return CompletableFuture.supplyAsync(()->ResponseEntity.ok(item));
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    //--------------------------PARA OBSERVAR MEJOR EL COMPORTAMIENTO DE SERVICE-CONFIG DECLARAMOS ESTE CONTROLADOR
+    //--------------------------el unico fin es ver el comportamiento de la configuracion
+
+    @GetMapping("/obtener-configuracion")
+    public ResponseEntity<?> obtenerConfig(){
+        Map<String,String> json = new HashMap<>();
+        json.put("texto", texto);
+        json.put("puerto",puerto);
+        return ResponseEntity.ok(json);
     }
 }
