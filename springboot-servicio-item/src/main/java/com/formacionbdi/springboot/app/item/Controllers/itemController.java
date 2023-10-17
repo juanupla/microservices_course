@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
+//@RefreshScope permite que las inyecciones se actualicen en tiempo de ejecucion, sin necesidad de detener la app(por
+// ejemplo en Environment cambiando el nombre y el email) t0do menos el puerto, conexion a servidores, etc..
+// Por ej: cuando cambiamos el nombre e email en entorno de desarrollo, para que se actualice necesitamos esta notacion
+// T0DO ESTO MEDIANTE UNA RUTA URL(UN ENDPOINT) DE SPRING ACTUATOR (POST localhost:8090/api/items/actuator/refresh) -> y para
+// ello vamos a necesitar su dependencia en nustro archivo pom
+//
+@RefreshScope
 @RestController
 //@RequestMapping("/Items")
 public class itemController {
@@ -27,10 +35,15 @@ public class itemController {
     @Autowired
     private CircuitBreakerFactory circuitBreakerFactory; //Esta es un forma de varias para implementar el patron
 
+    //-------------------------------------------------------------------------------------
+    //---------Config Server
     @Value("${configuracion.texto}")//también podrian ir como parametro donde se utilizan
     private String texto;
     @Value("${server.port}")//también podrian ir como parametro donde se utilizan
     private String puerto;
+    @Autowired
+    private Environment env;
+    //-------------------------------------------------------------------------------------
 
     //-----------------------------------------------------------------------------------------------------------------------
     //                  CONTIENE NOTACIONES DE PARAMETROS Y HEADERS: estos son requeridos en el servicio gateway, quien etrablece filtros
@@ -107,7 +120,16 @@ public class itemController {
     public ResponseEntity<?> obtenerConfig(){
         Map<String,String> json = new HashMap<>();
         json.put("texto", texto);
-        json.put("puerto",puerto);
+        json.put("puerto", puerto);
+
+        //dev fue declarado en la configuracion centralizada, si es la que estamos utilizando se mostrara!
+        //dev esta declarado en el puerto 8005 y prod en 8007. De esta manera diferenciamos el resultado SEGUN la configuracion establecida en
+        //bootstrap.properties -> spring.profile.active=dev
+        if(env.getActiveProfiles().length>0 && env.getActiveProfiles()[0].equals("dev")){
+            json.put("autor.nombre", env.getProperty("configuracion.autor.nombre"));//configuracion.autor.nombre asi fue declarada la configuracion en el el properties centralizado de dev
+            json.put("autor.email", env.getProperty("configuracion.autor.email"));//configuracion.autor.email
+        }
+
         return ResponseEntity.ok(json);
     }
 }

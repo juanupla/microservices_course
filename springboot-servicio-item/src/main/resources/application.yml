@@ -9,7 +9,7 @@ resilience4j:
         slow-call-rate-threshold: 50 #porcentaje para llamadas elntas
         slow-call-duration-threshold: 2s
     instances:
-      items: #nombre del cortocircuito; es decir, le tenemos que asiganr esta configuracion. y que esta por encima de la declarada con el @bean
+      items: #nombre del cortocircuito; es decir, le tenemos que asiganr esta configuracion. y que esta por encima de la declarada con el @bean(config>RestTemplateConfig)
         base-config: defecto
   time limiter:
     configs:
