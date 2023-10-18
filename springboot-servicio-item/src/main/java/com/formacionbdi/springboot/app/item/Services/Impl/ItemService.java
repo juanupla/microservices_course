@@ -35,7 +35,6 @@ public class ItemService implements IItemService {
             throw new ErrorResponseException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @Override
     public Item finById(Long id, Integer cantidad) {
         Map<String,String> pathVariable = new HashMap<String,String>();
