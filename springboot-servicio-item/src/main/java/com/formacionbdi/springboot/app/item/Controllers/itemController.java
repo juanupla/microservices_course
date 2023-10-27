@@ -1,5 +1,6 @@
 package com.formacionbdi.springboot.app.item.Controllers;
 
+import com.formacionbdi.springboot.app.item.Models.DTOs.ProductoDTO;
 import com.formacionbdi.springboot.app.item.Models.Item;
 import com.formacionbdi.springboot.app.item.Models.Producto;
 import com.formacionbdi.springboot.app.item.Services.IItemService;
@@ -29,13 +30,12 @@ import java.util.concurrent.CompletableFuture;
 //@RequestMapping("/Items")
 public class itemController {
     @Autowired
-    @Qualifier("itemServiceFeign")//
+    @Qualifier("itemService")//
     private IItemService iItemService;
 
     @Autowired
     private CircuitBreakerFactory circuitBreakerFactory; //Esta es un forma de varias para implementar el patron
 
-    //-------------------------------------------------------------------------------------
     //---------Config Server
     @Value("${configuracion.texto}")//también podrian ir como parametro donde se utilizan
     private String texto;
@@ -131,5 +131,24 @@ public class itemController {
         }
 
         return ResponseEntity.ok(json);
+    }
+
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    //--------------------------Resto del CRUD usando restTemplate/Feign segun cual de ellos inyectemos
+
+    @PostMapping("/Crear")
+    public ResponseEntity<ProductoDTO> save(@RequestBody ProductoDTO productoDTO){
+        return ResponseEntity.ok(iItemService.save(productoDTO));
+    }
+
+    @PutMapping("/Actualizar")
+    public ResponseEntity<Producto> update(@RequestBody Producto producto){
+        return ResponseEntity.ok(iItemService.update(producto));
+    }
+
+    @DeleteMapping("/Eliminar/{id}")
+    public ResponseEntity<Producto> delete(@PathVariable Long id){
+        return ResponseEntity.ok(iItemService.delete(id));
     }
 }

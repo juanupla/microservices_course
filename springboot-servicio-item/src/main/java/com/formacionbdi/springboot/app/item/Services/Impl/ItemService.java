@@ -1,11 +1,14 @@
 package com.formacionbdi.springboot.app.item.Services.Impl;
 
+import com.formacionbdi.springboot.app.item.Models.DTOs.ProductoDTO;
 import com.formacionbdi.springboot.app.item.Models.Item;
 import com.formacionbdi.springboot.app.item.Models.Producto;
 import com.formacionbdi.springboot.app.item.Services.IItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.ErrorResponseException;
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +23,7 @@ public class ItemService implements IItemService {
     private ModelMapper modelMapper;
     @Override
     public List<Item> finAll() {
-        List<Producto> productos = Arrays.asList(restTemplate.getForObject("http://servicio-productos/Productos/AllProductos", Producto[].class));//si no usaramos eureka, deberia ir el nombre del dominio y el puerto para consumir clientes http. cuando usamos eureka esto lo remplazamos por el nombre del servicio que consumimos
+        List<Producto> productos = Arrays.asList(restTemplate.getForObject("http://servicio-productos/AllProductos", Producto[].class));//si no usaramos eureka, deberia ir el nombre del dominio y el puerto para consumir clientes http. cuando usamos eureka esto lo remplazamos por el nombre del servicio que consumimos
         List<Item> items = new ArrayList<>();
         if(!productos.isEmpty()){
             int i = 0;
@@ -39,9 +42,39 @@ public class ItemService implements IItemService {
     public Item finById(Long id, Integer cantidad) {
         Map<String,String> pathVariable = new HashMap<String,String>();
         pathVariable.put("id",id.toString());
-        Producto producto = restTemplate.getForObject("http://servicio-productos/Productos/ProdcutoById/{id}",Producto.class,pathVariable);
+        Producto producto = restTemplate.getForObject("http://servicio-productos/ProdcutoById/{id}",Producto.class,pathVariable);
         Item item = modelMapper.map(producto,Item.class);
         item.setCantidad(cantidad);
         return item;
+    }
+
+    @Override
+    public ProductoDTO save(ProductoDTO productoDTO) {
+        String url = "http://servicio-productos/Crear";
+        ResponseEntity<ProductoDTO> prod = restTemplate.postForEntity(url,productoDTO, ProductoDTO.class);
+        return prod.getBody();
+    }
+
+    @Override
+    public Producto update(Producto producto) {
+        String url = "http://servicio-productos/Actualizar";
+         restTemplate.put(url,producto,Producto.class);
+        return producto;
+
+    }
+
+    @Override
+    public Producto delete(Long id) {
+        String url = "http://servicio-productos/Eliminar/{id}";
+        Map<String,String> pathVariable = new HashMap<>();
+        pathVariable.put("id",id.toString());
+        ResponseEntity<Producto> prodDeleted = restTemplate.getForEntity("http://servicio-productos/ProdcutoById/{id}",Producto.class,pathVariable);
+        if(prodDeleted != null){
+            restTemplate.delete(url, pathVariable);
+            return prodDeleted.getBody();
+        }
+        else {
+            throw new ErrorResponseException(HttpStatus.NOT_FOUND);
+        }
     }
 }

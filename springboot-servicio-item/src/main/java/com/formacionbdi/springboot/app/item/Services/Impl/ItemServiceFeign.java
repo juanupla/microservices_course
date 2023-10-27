@@ -1,6 +1,7 @@
 package com.formacionbdi.springboot.app.item.Services.Impl;
 
 import com.formacionbdi.springboot.app.item.Clientes.ProductoClienteRest;
+import com.formacionbdi.springboot.app.item.Models.DTOs.ProductoDTO;
 import com.formacionbdi.springboot.app.item.Models.Item;
 import com.formacionbdi.springboot.app.item.Models.Producto;
 import com.formacionbdi.springboot.app.item.Services.IItemService;
@@ -48,5 +49,20 @@ public class ItemServiceFeign implements IItemService {
         Item item = modelMapper.map(producto,Item.class);
         item.setCantidad(cantidad);
         return item;
+    }
+
+    @Override
+    public ProductoDTO save(ProductoDTO productoDTO) {
+        return null;
+    }
+
+    @Override
+    public Producto update(Producto producto) {
+        return null;
+    }
+
+    @Override
+    public Producto delete(Long id) {
+        return null;
     }
 }

@@ -4,6 +4,7 @@ import com.formacionbdi.springboot.app.productos.Models.DTOs.ProductoDTO;
 import com.formacionbdi.springboot.app.productos.Models.Producto;
 import com.formacionbdi.springboot.app.productos.Services.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,16 +36,18 @@ public class ProductoController {
         return ResponseEntity.ok(iProductoService.findById(id));
     }
     @PostMapping("/Crear")
-    public ProductoDTO create(@RequestBody ProductoDTO productoDTO){
-        return iProductoService.save(productoDTO);
+    public ResponseEntity<ProductoDTO> create(@RequestBody ProductoDTO productoDTO){
+        return ResponseEntity.ok(iProductoService.save(productoDTO));
     }
     @PutMapping("/Actualizar")
-    public Producto update(@RequestBody Producto producto){
-        return iProductoService.update(producto);
+    public ResponseEntity<Producto> update(@RequestBody Producto producto){
+        return ResponseEntity.ok(iProductoService.update(producto));
     }
     @DeleteMapping("/Eliminar/{id}")
-    public Producto delete(@PathVariable Long id){
-        return iProductoService.delete(id);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Producto> delete(@PathVariable Long id){
+
+        return ResponseEntity.ok(iProductoService.delete(id));
     }
 
 }
