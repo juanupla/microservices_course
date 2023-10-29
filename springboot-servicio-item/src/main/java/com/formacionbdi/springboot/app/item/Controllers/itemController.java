@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
 //@RequestMapping("/Items")
 public class itemController {
     @Autowired
-    @Qualifier("itemService")//
+    @Qualifier("itemServiceFeign")//
     private IItemService iItemService;
 
     @Autowired

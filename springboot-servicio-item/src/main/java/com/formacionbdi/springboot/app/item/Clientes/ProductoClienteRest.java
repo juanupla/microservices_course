@@ -1,9 +1,11 @@
 package com.formacionbdi.springboot.app.item.Clientes;
 
+import com.formacionbdi.springboot.app.item.Models.DTOs.ProductoDTO;
 import com.formacionbdi.springboot.app.item.Models.Producto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,5 +17,11 @@ public interface ProductoClienteRest {
     List<Producto> productos();
     @GetMapping("/ProdcutoById/{id}")
     Producto producto(@PathVariable Long id);
+    @PostMapping("/Crear")
+    ProductoDTO create(@RequestBody ProductoDTO productoDTO);
+    @PutMapping("/Actualizar")
+    Producto update(@RequestBody Producto producto);
+    @DeleteMapping("/Eliminar/{id}")
+    Producto delete(@PathVariable Long id);
 
 }

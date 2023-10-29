@@ -13,5 +13,6 @@
 		<module>springboot-servicio-eureka-server</module>
 		<module>springboot-servicio-gateway-server</module>
 		<module>springboot-servicio-config-server</module>
+		<module>springboot-servicio-common</module>
 	</modules>
 </project>
