@@ -1,10 +1,10 @@
-package com.springbootserviciocommon.springbootserviciocommon;
+package com.formacionbdi.sptingboot.app.usuarios;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringbootServicioCommonApplicationTests {
+class SpringbootServicioUsuariosApplicationTests {
 
 	@Test
 	void contextLoads() {
