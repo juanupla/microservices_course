@@ -8,6 +8,8 @@
       <module fileurl="file://$PROJECT_DIR$/springboot-servicio-eureka-server/springboot-servicio-eureka-server.iml" filepath="$PROJECT_DIR$/springboot-servicio-eureka-server/springboot-servicio-eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-servicio-gateway-server/springboot-servicio-gateway-server.iml" filepath="$PROJECT_DIR$/springboot-servicio-gateway-server/springboot-servicio-gateway-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-servicio-item/springboot-servicio-item.iml" filepath="$PROJECT_DIR$/springboot-servicio-item/springboot-servicio-item.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-servicio-oauth/springboot-servicio-oauth.iml" filepath="$PROJECT_DIR$/springboot-servicio-oauth/springboot-servicio-oauth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-servicio-oauth1/springboot-servicio-oauth (1).iml" filepath="$PROJECT_DIR$/springboot-servicio-oauth1/springboot-servicio-oauth (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-servicio-usuarios/springboot-servicio-usuarios.iml" filepath="$PROJECT_DIR$/springboot-servicio-usuarios/springboot-servicio-usuarios.iml" />
     </modules>
   </component>

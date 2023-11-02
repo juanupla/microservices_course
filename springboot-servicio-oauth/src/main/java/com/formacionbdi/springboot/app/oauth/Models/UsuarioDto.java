@@ -1,20 +1,19 @@
-package com.formacionbdi.sptingboot.app.usuarios.Models.DTOs;
+package com.formacionbdi.springboot.app.oauth.Models;
 
-import com.formacionbdi.sptingboot.app.usuarios.Entities.RolEntity;
-import com.formacionbdi.sptingboot.app.usuarios.Models.Rol;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioDto {
-    @NotNull
+
     private String userName;
-    @NotNull
+
     private String password;
 
     private boolean enabled;

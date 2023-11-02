@@ -14,5 +14,6 @@
 		<module>springboot-servicio-gateway-server</module>
 		<module>springboot-servicio-config-server</module>
 		<module>springboot-servicio-usuarios</module>
+		<module>springboot-servicio-oauth</module>
 	</modules>
 </project>
