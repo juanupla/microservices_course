@@ -27,5 +27,5 @@ public class Usuario {
 
     private String email;
 
-    private List<RolEntity> roles;
+    private List<Rol> roles;
 }

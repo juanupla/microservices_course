@@ -1,7 +1,6 @@
 package com.formacionbdi.sptingboot.app.usuarios.Repositories;
 
 import com.formacionbdi.sptingboot.app.usuarios.Entities.UsuarioEntity;
-import com.formacionbdi.sptingboot.app.usuarios.Models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

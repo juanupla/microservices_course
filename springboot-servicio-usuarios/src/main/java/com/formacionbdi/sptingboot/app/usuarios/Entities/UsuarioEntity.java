@@ -27,5 +27,9 @@ public class UsuarioEntity {
     @Column(unique = true)
     private String email;
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id","rol_id"})}
+    )
     private List<RolEntity> roles;
 }

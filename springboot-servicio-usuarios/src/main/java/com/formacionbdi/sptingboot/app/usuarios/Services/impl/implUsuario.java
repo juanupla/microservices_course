@@ -1,6 +1,5 @@
 package com.formacionbdi.sptingboot.app.usuarios.Services.impl;
 
-import com.formacionbdi.sptingboot.app.usuarios.Config.mappersConfig;
 import com.formacionbdi.sptingboot.app.usuarios.Entities.UsuarioEntity;
 import com.formacionbdi.sptingboot.app.usuarios.Models.DTOs.UsuarioDto;
 import com.formacionbdi.sptingboot.app.usuarios.Models.Usuario;
@@ -24,6 +23,7 @@ public class implUsuario implements iUsuario {
     public UsuarioDto findByUsername(String username) {
         Optional<UsuarioEntity> usuarioEntity = usuarioJpa.findByUsername(username);
         if(usuarioEntity.isPresent()){
+            System.out.println(usuarioEntity.get().getRoles());
             return modelMapper.map(usuarioEntity,UsuarioDto.class);
         }
         else {
